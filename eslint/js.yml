@@ -1,0 +1,3 @@
+---
+  rules:
+    no-useless-constructor: error
