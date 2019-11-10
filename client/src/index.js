@@ -16,7 +16,8 @@ import Feature from './components/Feature'
 const store = createStore(
   reducers,
   {
-    auth: { authenticated: localStorage.getItem('token')}
+    auth: { authenticated: localStorage.getItem('token')},
+    user: { email: localStorage.getItem('userEmail')}
   },
   applyMiddleware(reduxThunk)
 )

@@ -17,19 +17,21 @@ class Signin extends Component {
   render() {
     const { handleSubmit } = this.props
     return (
-      <form onSubmit={handleSubmit(this.onSubmit)}>
-        <fieldset>
-          <label>Email</label>
-          <Field name="email" type="text" component="input" autoComplete="none" />
+      <div className="form-container">
+        <form onSubmit={handleSubmit(this.onSubmit)}>
+          <fieldset>
+            <label>Email</label>
+            <Field name="email" type="text" component="input" autoComplete="none" />
 
-        </fieldset>
-        <fieldset>
-          <label>Password</label>
-          <Field name="password" type="password" component="input" autoComplete="none" />
-        </fieldset>
-        <div>{this.props.errorMessage}</div>
-        <button>sign in</button>
-      </form>
+          </fieldset>
+          <fieldset>
+            <label>Password</label>
+            <Field name="password" type="password" component="input" autoComplete="none" />
+          </fieldset>
+          <div>{this.props.errorMessage}</div>
+          <button>sign in</button>
+        </form>
+      </div>
     )
   }
 }

@@ -14,8 +14,9 @@ mongoose.connect(keys.mongoURI, {
 
 const app = express();
 
-app.use(morgan('combined'));
 app.use(cors());
+app.use(morgan('combined'));
+
 
 // attempts to parse any request into JSON
 app.use(bodyParser.json({ type: '*/*' }));

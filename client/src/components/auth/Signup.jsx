@@ -27,6 +27,14 @@ class Signup extends Component {
           <label>Password</label>
           <Field name="password" type="password" component="input" autoComplete="none" />
         </fieldset>
+        <fieldset>
+          <label>First Name</label>
+          <Field name="firstName" type="firstName" component="input" autoComplete="none" />
+        </fieldset>
+        <fieldset>
+          <label>Last Name</label>
+          <Field name="lastName" type="lastName" component="input" autoComplete="none" />
+        </fieldset>
         <div>{this.props.errorMessage}</div>
         <button>sign up</button>
       </form>

@@ -1,0 +1,42 @@
+.header-container {
+  background-color: #97b9f0;
+  height: 90px;
+
+  .header {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+
+    .sign-in {
+      display: flex;
+
+    }
+
+    a {
+      text-decoration: none;
+      color: #FFFFFF;
+      margin: auto 10px;
+    }
+  }
+
+  .header-user {
+    color: red;
+  }
+}
+
+.form-container {
+  display: flex;
+  padding-top: 72px;
+
+  form {
+    max-width: 600px;
+    margin: 0 auto;
+
+    label {
+      display: inline-block;
+      width: 80px;
+    }
+  }
+}

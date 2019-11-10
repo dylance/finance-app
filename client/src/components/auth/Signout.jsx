@@ -7,6 +7,7 @@ class Signout extends Component {
 
   componentDidMount() {
     this.props.signout();
+    this.props.clearUser();
   }
 
   render() {
