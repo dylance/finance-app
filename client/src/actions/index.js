@@ -20,13 +20,15 @@ export const signin = ({ email, password }, callback) => {
   return async dispatch => {
     try {
       const response = await axios.post('/signin', {email, password})
-
+      const { user } = response.data
       dispatch({type: AUTH_USER, payload: response.data.token})
       dispatch({type: GET_USER, payload: response.data.user})
+
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userEmail', email);
+      localStorage.setItem('user', JSON.stringify(user));
       callback()
     } catch (error) {
+      console.log("The error is: ", error)
       dispatch({type: AUTH_ERROR, payload: 'Invalid login'})
     }
   }

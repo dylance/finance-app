@@ -17,7 +17,7 @@ const store = createStore(
   reducers,
   {
     auth: { authenticated: localStorage.getItem('token')},
-    user: { email: localStorage.getItem('userEmail')}
+    user: JSON.parse(localStorage.getItem('user'))
   },
   applyMiddleware(reduxThunk)
 )

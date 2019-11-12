@@ -11,14 +11,14 @@ class AddExpenses extends Component {
   }
 
   onSubmit = async ({category}) => {
-    const { id } = this.props.user
+    const { _id } = this.props.user
 
     this.setState({
       categories: [...this.state.categories, {category}]
     })
 
     try {
-      const response = await axios.post('/create-category', {id, category})
+      const response = await axios.post('/create-category', {_id, category})
       console.log("The reponse is:", response)
 
 //      dispatch({type: AUTH_USER, payload: response.data.token})
@@ -39,9 +39,9 @@ class AddExpenses extends Component {
 };
 
   componentDidMount() {
-    const { id } = this.props.user;
-    console.log('the compnendidd did mount props are: ', this.props.user);
-    axios.post('/categories', { id: id, dylan: 'ellison' }).then(({ data }) => {
+    const { _id } = this.props.user;
+    console.log('the compnendidd did mount props are:::: ', this.props.user._id);
+    axios.post('/categories', { _id: _id} ).then(({ data }) => {
       console.log('The response is: ', data);
       this.setState({
         categories: data,
@@ -58,7 +58,6 @@ class AddExpenses extends Component {
       }
     })
     console.log("The lengths are: ", this.state.categories.length)
-    console.log("The categooao are: ", categoriesLabel)
 
     console.log("The props are: ", this.props)
     console.log("The categories areddd: ", this.state.categories)

@@ -8,18 +8,24 @@ import ShowCategories from './ShowCategories';
 
 class AddCategories extends Component {
   state = {
-    categories: []
+    categories: [],
+    errorMessage: '',
   }
 
   onSubmit = async ({category}) => {
-    const { id } = this.props.user
+    const { _id } = this.props.user
+
+    if(!category) {
+      this.setState({errorMessage: "need category fool"})
+      return
+    }
 
     this.setState({
       categories: [...this.state.categories, {category}]
     })
 
     try {
-      const response = await axios.post('/create-category', {id, category})
+      const response = await axios.post('/create-category', {_id, category})
       console.log("The reponse is:", response)
 
 //      dispatch({type: AUTH_USER, payload: response.data.token})
@@ -32,9 +38,10 @@ class AddCategories extends Component {
   }
 
   componentDidMount() {
-    const { id } = this.props.user;
+    const { _id } = this.props.user;
+    console.log("The user is: ", this.props.user._id)
     console.log('the compnendidd did mount props are: ', this.props.user);
-    axios.post('/categories', { id: id, dylan: 'ellison' }).then(({ data }) => {
+    axios.post('/categories', { _id: _id }).then(({ data }) => {
       console.log('The response is: ', data);
       this.setState({
         categories: data,
@@ -53,6 +60,7 @@ class AddCategories extends Component {
               <label>Category</label>
               <Field name="category" type="text" component="input" autoComplete="none" />
             </fieldset>
+            <div>{this.state.errorMessage}</div>
             <div>{this.props.errorMessage}</div>
             <button>Add Category</button>
           </form>
