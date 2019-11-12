@@ -3,9 +3,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+//const { graphqlExpress } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 
 const keys = require('../config/keys');
 const router = require('./router');
+const schema = require('./schema');
+console.log("The schema is: ", schema)
 
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
@@ -14,12 +18,17 @@ mongoose.connect(keys.mongoURI, {
 
 const app = express();
 
+const server = new ApolloServer(schema);
+
+server.applyMiddleware({ app });
+
 app.use(cors());
 app.use(morgan('combined'));
 
 
 // attempts to parse any request into JSON
 app.use(bodyParser.json({ type: '*/*' }));
+//app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }));
 
 router(app);
 
