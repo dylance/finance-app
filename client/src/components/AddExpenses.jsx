@@ -7,42 +7,34 @@ import Select from 'react-select'
 
 class AddExpenses extends Component {
   state = {
-    categories: []
+    categories: [],
+    selectedCategory: null,
   }
 
-  onSubmit = async ({category}) => {
-    const { _id } = this.props.user
-
-    this.setState({
-      categories: [...this.state.categories, {category}]
-    })
+  onSubmit = async (values) => {
+    const { _id: userId } = this.props.user
+    const { label, description, ammount, spendDate } = values
+    const { value: catId } = this.state.selectedCategory;
 
     try {
-      const response = await axios.post('/create-category', {_id, category})
+      const response = await axios.post('/create-expense', { label, description, userId, catId, ammount, spendDate})
       console.log("The reponse is:", response)
-
-//      dispatch({type: AUTH_USER, payload: response.data.token})
-
-
     } catch (error) {
-  //    dispatch({type: AUTH_ERROR, payload: 'Email in use'})
       console.log("The error is: ", error);
     }
   }
 
-  onChangeSelect = (disciplineObject) => {
-    console.log("I have been changed")
-  // const disciplineId = disciplineObject ? disciplineObject.value : '';
-  // const { dispatch } = this.props;
-  // dispatch(change('registration', 'disciplineId', disciplineId));
-  // this.setState({ disciplineId, showDisciplineError: false });
+  onChangeSelect = (selectedCategory) => {
+    console.log("I have been changed, the categories are:  ")
+    this.setState({ selectedCategory });
+
 };
 
   componentDidMount() {
     const { _id } = this.props.user;
-    console.log('the compnendidd did mount props are:::: ', this.props.user._id);
+
     axios.post('/categories', { _id: _id} ).then(({ data }) => {
-      console.log('The response is: ', data);
+
       this.setState({
         categories: data,
       });
@@ -51,16 +43,13 @@ class AddExpenses extends Component {
 
   render() {
     const categoriesLabel = this.state.categories.map(cat => {
-      console.log("cat .cat is: ", cat.category)
       return {
-        value: cat.category,
+        value: cat._id,
         label: cat.category
       }
     })
-    console.log("The lengths are: ", this.state.categories.length)
 
-    console.log("The props are: ", this.props)
-    console.log("The categories areddd: ", this.state.categories)
+
     const { handleSubmit } = this.props
     return (
       <div>
@@ -68,15 +57,19 @@ class AddExpenses extends Component {
           <form onSubmit={handleSubmit(this.onSubmit)}>
           <fieldset>
             <label>Expense</label>
-            <Field name="category" type="text" component="input" autoComplete="none" />
+            <Field name="label" type="text" component="input" autoComplete="none" />
           </fieldset>
           <fieldset>
             <label>Note</label>
-            <Field name="category" type="text" component="input" autoComplete="none" />
+            <Field name="description" type="text" component="input" autoComplete="none" />
           </fieldset>
           <fieldset>
             <label>Ammount</label>
-            <Field name="category" type="text" component="input" autoComplete="none" />
+            <Field name="ammount" type="text" component="input" autoComplete="none" />
+          </fieldset>
+          <fieldset>
+            <label>Ammount</label>
+            <Field name="spendDate" type="date" component="input" autoComplete="none" />
           </fieldset>
           <fieldset>
             <label>Category</label>
@@ -84,13 +77,14 @@ class AddExpenses extends Component {
               className="select-discipline"
               clearable={false}
               name="discipline"
-              onChange={this.onChangeDiscipline}
+              onChange={this.onChangeSelect}
               options={categoriesLabel}
               placeholder="Select"
               searchable={false}
-              value={'category'}
+              value={this.state.selectedCategory}
             />
           </fieldset>
+          <button type="submit">Submit</button>
 
           </form>
         </div>

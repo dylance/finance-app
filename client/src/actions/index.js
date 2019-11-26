@@ -35,8 +35,7 @@ export const signin = ({ email, password }, callback) => {
 }
 
 export const signout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userEmail');
+  localStorage.clear();
 
   return {
     type: AUTH_USER,

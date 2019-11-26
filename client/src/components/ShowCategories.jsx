@@ -7,7 +7,7 @@ class ShowCategories extends Component {
     return (
       <div>
         {this.props.categories.map((cat) => {
-          return <h1>{cat.category}</h1>;
+          return <h1 key={cat.category}>{cat.category}</h1>;
         })}
       </div>
     );
