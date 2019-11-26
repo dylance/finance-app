@@ -20,12 +20,14 @@ exports.createCategory = function(req, res, next) {
 exports.getCategories = async function(req, res, next) {
   const { _id } = req.body;
 
+  if (!_id) {
+    res.status(400).send({
+      message: 'User id required to make this request',
+    });
+  }
+
   if (_id) {
     const categories = await Categories.find({ _user: _id });
     res.send(categories);
   }
-
-  res.status(400).send({
-    message: 'User id required to make this request',
-  });
 };
