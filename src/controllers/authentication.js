@@ -11,9 +11,9 @@ function tokenForUser(user) {
 exports.signup = function(req, res, next) {
   const { email, password, firstName, lastName } = req.body;
 
-  // if (!email || !password || !firstName || !lastName) {
-  //   res.status(422).send({ error: 'missing sign up data' });
-  // }
+  if (!email || !password || !firstName || !lastName) {
+    res.status(422).send({ error: 'missing sign up data' });
+  }
 
   User.findOne({ email }, function(err, existingUser) {
     if (err) {
@@ -23,11 +23,8 @@ exports.signup = function(req, res, next) {
 
     if (existingUser) {
       // 422 means unprocessible entity
-      console.log("The user id is: ", existingUser.id)
       return res.status(422).send({ error: 'Email in use' });
     }
-
-
 
     const user = new User({
       email,
@@ -47,8 +44,11 @@ exports.signup = function(req, res, next) {
 };
 
 exports.signin = async function(req, res, next) {
-  console.log("the req body is: ", req.body)
   const user  =  await User.findOne({email: req.body.email})
 
-  res.send({ token: tokenForUser(req.user), user: user });
+  let token = tokenForUser(req.user);
+  let decoded = jwt.decode(token, secret);
+  console.log("Decoded is:", decoded)
+
+  res.send({ token: token, user: user });
 };
