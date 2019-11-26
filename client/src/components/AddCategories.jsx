@@ -26,11 +26,8 @@ class AddCategories extends Component {
 
     try {
       const response = await axios.post('/create-category', {_id, category})
-      console.log("The reponse is:", response)
 
 //      dispatch({type: AUTH_USER, payload: response.data.token})
-
-
     } catch (error) {
   //    dispatch({type: AUTH_ERROR, payload: 'Email in use'})
       console.log("The error is: ", error);
@@ -39,10 +36,8 @@ class AddCategories extends Component {
 
   componentDidMount() {
     const { _id } = this.props.user;
-    console.log("The user is: ", this.props.user._id)
-    console.log('the compnendidd did mount props are: ', this.props.user);
+
     axios.post('/categories', { _id: _id }).then(({ data }) => {
-      console.log('The response is: ', data);
       this.setState({
         categories: data,
       });
@@ -50,7 +45,6 @@ class AddCategories extends Component {
   }
 
   render() {
-    console.log("The props are: ", this.props)
     const { handleSubmit } = this.props
     return (
       <div>
@@ -73,7 +67,6 @@ class AddCategories extends Component {
 
 function mapStateToProps(state) {
   return { user: state.user}
-
 }
 
 export default compose(
