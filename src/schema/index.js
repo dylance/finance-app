@@ -32,7 +32,7 @@ const typeDefs = gql`
   }
 `;
 
-console.log("The dirname is: ", __dirname)
+console.log('The dirname is: ', __dirname);
 // Categories.find({_user: id })
 
 const resolvers = {
@@ -40,8 +40,11 @@ const resolvers = {
     user: (parent, args) => User.findOne({ email: args.email }),
   },
   User: {
-    categories(parent, args){ console.log("the parent is: ", parent); return Categories.find({_user: parent.id }) },
+    categories(parent) {
+      console.log('the parent is: ', parent);
+      return Categories.find({ _user: parent.id });
+    },
   },
 };
 
-module.exports = { typeDefs, resolvers }
+module.exports = { typeDefs, resolvers };

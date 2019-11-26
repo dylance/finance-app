@@ -9,7 +9,7 @@ const { ApolloServer } = require('apollo-server-express');
 const keys = require('../config/keys');
 const router = require('./router');
 const schema = require('./schema');
-console.log("The schema is: ", schema)
+console.log('The schema is: ', schema);
 
 mongoose.connect(keys.mongoURI, {
   useNewUrlParser: true,
@@ -24,7 +24,6 @@ server.applyMiddleware({ app });
 
 app.use(cors());
 app.use(morgan('combined'));
-
 
 // attempts to parse any request into JSON
 app.use(bodyParser.json({ type: '*/*' }));

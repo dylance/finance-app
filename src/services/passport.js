@@ -48,7 +48,7 @@ const jwtOptions = {
 // payload - decoded jwt token which is object password to jwt.encode
 // done - callback if user is successful authenticated
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) {
-  console.log("The payload is: ", payload)
+  console.log('The payload is: ', payload);
   User.findById(payload.sub, function(err, user) {
     if (err) {
       return done(err, false);

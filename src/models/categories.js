@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 // Tells mongoose about fields of our model
 const Schema = mongoose.Schema;
 
-
 const categoriesSchema = new Schema({
   category: String,
-  _user: { type: Schema.Types.ObjectId, ref: "User"},
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 const ModelClass = mongoose.model('Categories', categoriesSchema);

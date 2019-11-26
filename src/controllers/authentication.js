@@ -44,11 +44,11 @@ exports.signup = function(req, res, next) {
 };
 
 exports.signin = async function(req, res, next) {
-  const user  =  await User.findOne({email: req.body.email})
+  const user = await User.findOne({ email: req.body.email });
 
   let token = tokenForUser(req.user);
   let decoded = jwt.decode(token, secret);
-  console.log("Decoded is:", decoded)
+  console.log('Decoded is:', decoded);
 
   res.send({ token: token, user: user });
 };

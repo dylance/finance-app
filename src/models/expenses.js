@@ -6,8 +6,8 @@ const expensesSchema = new Schema({
   description: String,
   spendDate: Date,
   ammount: Number,
-  _category: { type: Schema.Types.ObjectId, ref: "Categories"},
-  _user: { type: Schema.Types.ObjectId, ref: "User"},
+  _category: { type: Schema.Types.ObjectId, ref: 'Categories' },
+  _user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 const ModelClass = mongoose.model('Expenses', expensesSchema);

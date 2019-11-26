@@ -5,7 +5,7 @@ exports.createCategory = function(req, res, next) {
 
   const categories = new Categories({
     category,
-    _user: _id
+    _user: _id,
   });
 
   categories.save(function(err) {
@@ -18,14 +18,14 @@ exports.createCategory = function(req, res, next) {
 };
 
 exports.getCategories = async function(req, res, next) {
-  const { _id }  = req.body
+  const { _id } = req.body;
 
-  if ( _id ) {
-    const categories = await Categories.find({_user: _id })
-    res.send(categories)
+  if (_id) {
+    const categories = await Categories.find({ _user: _id });
+    res.send(categories);
   }
 
-   res.status(400).send({
-     message: 'User id required to make this request'
-   });
-}
+  res.status(400).send({
+    message: 'User id required to make this request',
+  });
+};
