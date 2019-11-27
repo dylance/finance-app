@@ -12,6 +12,7 @@ import Signup from './components/auth/Signup'
 import Signout from './components/auth/Signout'
 import Signin from './components/auth/Signin'
 import Feature from './components/Feature'
+import PieChart from './components/PieChart'
 
 const store = createStore(
   reducers,
@@ -31,6 +32,7 @@ reactDOM.render(
        <Route path="/feature" exact component={Feature}></Route>
        <Route path="/sign-out" exact component={Signout}></Route>
        <Route path="/sign-in" exact component={Signin}></Route>
+       <Route path="/graph" exact component={PieChart}></Route>
       </ App>
     </BrowserRouter>
   </Provider>,
