@@ -26,12 +26,12 @@ class Header extends Component {
   render() {
     const { user } = this.props;
 
-    const showUser = <span className="header-user">Welcome {user.firstName}</span>
+    const showUser = <span className="header-user">Welcome {user && user.firstName && user.firstName}</span>
 
     return (
       <div className="header-container">
         <div className="header">
-          <Link to='/'>Finance App {this.props.user.firstName && showUser}</Link>
+          <Link to='/'>Finance App {user && user.firstName && showUser}</Link>
           {this.renderLinks()}
         </div>
       </div>

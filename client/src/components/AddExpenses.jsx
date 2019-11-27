@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import axios from 'axios'
 import Select from 'react-select'
 
+import Expenses from './Expenses'
+
 class AddExpenses extends Component {
   state = {
     categories: [],
@@ -15,6 +17,7 @@ class AddExpenses extends Component {
     const { _id: userId } = this.props.user
     const { label, description, ammount, spendDate } = values
     const { value: catId } = this.state.selectedCategory;
+    console.log("THe cat id is:", catId)
 
     try {
       const response = await axios.post('/create-expense', { label, description, userId, catId, ammount, spendDate})
@@ -88,6 +91,7 @@ class AddExpenses extends Component {
 
           </form>
         </div>
+        <Expenses />
       </div>
     )
   }

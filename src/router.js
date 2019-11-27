@@ -20,5 +20,5 @@ module.exports = function(app) {
   app.post('/categories', categories.getCategories);
 
   app.post('/create-expense', expenses.createExpense);
-  app.get('/expenses', expenses.getExpenses);
+  app.post('/expenses', expenses.getExpenses);
 };
