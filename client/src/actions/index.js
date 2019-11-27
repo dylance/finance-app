@@ -1,53 +1,64 @@
-import { AUTH_USER, AUTH_ERROR, GET_USER, CLEAR_USER, ADD_CATEGORIES } from './types'
-import axios from 'axios'
+import {
+  AUTH_USER,
+  AUTH_ERROR,
+  GET_USER,
+  CLEAR_USER,
+  ADD_CATEGORIES,
+} from './types';
+import axios from 'axios';
 
 export const signup = ({ email, password, firstName, lastName }, callback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const response = await axios.post('/signup', {email, password, firstName, lastName})
+      const response = await axios.post('/signup', {
+        email,
+        password,
+        firstName,
+        lastName,
+      });
 
-      dispatch({type: AUTH_USER, payload: response.data.token})
+      dispatch({ type: AUTH_USER, payload: response.data.token });
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userEmail', email);
-      callback()
+      callback();
     } catch (error) {
-      dispatch({type: AUTH_ERROR, payload: 'Email in use'})
+      dispatch({ type: AUTH_ERROR, payload: 'Email in use' });
     }
-  }
-}
+  };
+};
 
 export const signin = ({ email, password }, callback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const response = await axios.post('/signin', {email, password})
-      const { user } = response.data
-      dispatch({type: AUTH_USER, payload: response.data.token})
-      dispatch({type: GET_USER, payload: response.data.user})
+      const response = await axios.post('/signin', { email, password });
+      const { user } = response.data;
+      dispatch({ type: AUTH_USER, payload: response.data.token });
+      dispatch({ type: GET_USER, payload: response.data.user });
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(user));
-      callback()
+      callback();
     } catch (error) {
-      console.log("The error is: ", error)
-      dispatch({type: AUTH_ERROR, payload: 'Invalid login'})
+      console.log('The error is: ', error);
+      dispatch({ type: AUTH_ERROR, payload: 'Invalid login' });
     }
-  }
-}
+  };
+};
 
 export const signout = () => {
   localStorage.clear();
 
   return {
     type: AUTH_USER,
-    payload: ''
-  }
-}
+    payload: '',
+  };
+};
 
 export const clearUser = () => {
   return {
-    type: CLEAR_USER
-  }
-}
+    type: CLEAR_USER,
+  };
+};
 
 // export const addCategories = ({ category }) => {
 //   return async dispatch => {

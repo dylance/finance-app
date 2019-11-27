@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 import AddCategories from './AddCategories';
 import AddExpenses from './AddExpenses';
 
-import requireAuth from './requireAuth'
+import requireAuth from './requireAuth';
 
 class Feature extends Component {
   render() {
@@ -12,8 +12,8 @@ class Feature extends Component {
         <AddCategories />
         <AddExpenses />
       </div>
-    )
+    );
   }
 }
 
-export default requireAuth(Feature)
+export default requireAuth(Feature);
