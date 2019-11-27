@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 const User = require('../models/user');
 const Categories = require('../models/categories');
+const Expenses = require('../models/expenses');
 
 const typeDefs = gql`
   # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
@@ -17,6 +18,13 @@ const typeDefs = gql`
   type Categories {
     category: String
     id: ID
+  }
+
+  type Expenses {
+    label: String
+    description: String
+    spendDate: String
+    ammount: String
   }
 
   input userInput {
@@ -36,6 +44,7 @@ const typeDefs = gql`
   type Query {
     user(email: String): User
     categories(userId: ID): [Categories]
+    expenses(userId: ID): [Expenses]
   }
 
   type Mutation {
@@ -48,7 +57,8 @@ console.log('The dirname is: ', __dirname);
 const resolvers = {
   Query: {
     user: (parent, args) => User.findOne({ email: args.email }),
-    categories: (parent, args) => Categories.find({ userId: args.id }),
+    categories: (parent, args) => Categories.find({ _user: args.userId }),
+    expenses: (parent, args) => Expenses.find({ _user: args.userId }),
   },
   Mutation: {
     signUp: (parent, { input }) => signUp(input),
@@ -59,7 +69,6 @@ const resolvers = {
       return Categories.find({ _user: parent.id });
     },
   },
-  Categories: {},
 };
 
 function signUp({ email, password, firstName, lastName }) {
