@@ -38,9 +38,11 @@ const typeDefs = gql`
     lastName: String
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
+  input addCategoryInput {
+    category: String
+    _id: ID
+  }
+
   type Query {
     user(email: String): User
     categories(userId: ID): [Categories]
@@ -49,10 +51,9 @@ const typeDefs = gql`
 
   type Mutation {
     signUp(input: signUpInput): User
+    addCategory(input: addCategoryInput): Categories
   }
 `;
-
-console.log('The dirname is: ', __dirname);
 
 const resolvers = {
   Query: {
@@ -62,6 +63,7 @@ const resolvers = {
   },
   Mutation: {
     signUp: (parent, { input }) => signUp(input),
+    addCategory: (parent, { input }) => addCategory(input),
   },
   User: {
     categories(parent) {
@@ -86,6 +88,21 @@ function signUp({ email, password, firstName, lastName }) {
     }
   });
   return user;
+}
+
+function addCategory({ category, _id }) {
+  const newCategory = new Categories({
+    category,
+    _user: _id,
+  });
+
+  newCategory.save(function(err) {
+    if (err) {
+      console.log('the error is: ', err);
+    }
+  });
+
+  return newCategory;
 }
 
 module.exports = { typeDefs, resolvers };
